@@ -1,4 +1,4 @@
-package com.example.test_inosoft.ui.theme
+package com.example.test_inosoft.view.theme
 
 import android.app.Activity
 import android.os.Build
