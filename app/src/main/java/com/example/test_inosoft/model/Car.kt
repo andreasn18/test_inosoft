@@ -1,9 +1,9 @@
 package com.example.test_inosoft.model
 
-class Car(
-    pVehicleYear: String,
-    pColor: String,
-    pPrice: String,
+data class Car(
+    val pVehicleYear: String,
+    val pColor: String,
+    val pPrice: String,
     val engine: String = "",
     val totalPassenger: String = "",
     val type: String = ""
