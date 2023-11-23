@@ -3,6 +3,7 @@ package com.example.test_inosoft
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -31,9 +32,14 @@ import com.example.test_inosoft.view.screen.SalesReportScreen
 import com.example.test_inosoft.view.screen.VehicleSaleScreen
 import com.example.test_inosoft.view.screen.VehicleStockScreen
 import com.example.test_inosoft.view.theme.Test_inosoftTheme
+import com.example.test_inosoft.viewmodel.VehicleViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 @OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
+
+    private val vehicleVM: VehicleViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

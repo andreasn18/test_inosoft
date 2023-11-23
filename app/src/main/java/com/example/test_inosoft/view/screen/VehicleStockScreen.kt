@@ -16,12 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.test_inosoft.model.Car
 import com.example.test_inosoft.model.Motorcycle
-import com.example.test_inosoft.model.Vehicle
+import com.example.test_inosoft.model.VehicleStockData
 
-data class VehicleStockData(
-    val vehicle: Vehicle,
-    val stock: Int
-)
 
 @Composable
 fun VehicleStockScreen() {
@@ -59,10 +55,6 @@ fun VehicleItem(vehicleStock: VehicleStockData) {
                 text = "Tahun: ${vehicleStock.vehicle.vehicleYear}",
                 modifier = Modifier.padding(8.dp)
             )
-            Text(
-                text = "Harga: Rp ${vehicleStock.vehicle.price}",
-                modifier = Modifier.padding(8.dp)
-            )
             when (vehicleStock.vehicle) {
                 is Car -> {
                     val car = vehicleStock.vehicle
@@ -96,6 +88,11 @@ fun VehicleItem(vehicleStock: VehicleStockData) {
                     )
                 }
             }
+            Text(
+                text = "Harga: Rp ${vehicleStock.vehicle.price}",
+                modifier = Modifier.padding(8.dp)
+            )
+            Text(text = "Stock ${vehicleStock.stock}", modifier = Modifier.padding(8.dp))
         }
     }
 }
