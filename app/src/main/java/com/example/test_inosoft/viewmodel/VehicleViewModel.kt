@@ -17,17 +17,17 @@ class VehicleViewModel @Inject constructor(private val vehicleRepository: Vehicl
     val vehicleSalesList: LiveData<List<VehicleSalesData>> = vehicleRepository.vehicleSalesList
     val salesReportList: LiveData<List<SalesReportData>> = vehicleRepository.salesReportList
 
-    fun addVehicleStock(vehicleStock: VehicleStockData) {
-        vehicleRepository.addVehicleStock(vehicleStock)
+    fun addVehicleStock(vararg vehicleStock: VehicleStockData) {
+        vehicleRepository.addVehicleStock(*vehicleStock)
     }
 
-    fun addVehicleSales(vehicleSales: VehicleSalesData) {
-        vehicleRepository.addVehicleSales(vehicleSales)
+    fun addVehicleSales(vararg vehicleSales: VehicleSalesData) {
+        vehicleRepository.addVehicleSales(*vehicleSales)
     }
 
-    fun addSalesReport(salesReport: SalesReportData) {
-        vehicleRepository.addSalesReport(salesReport)
-    }
+//    fun addSalesReport(salesReport: SalesReportData) {
+//        vehicleRepository.addSalesReport(salesReport)
+//    }
 
     fun getVehicleStockList() {
         vehicleRepository.getVehicleStockList()
@@ -37,7 +37,7 @@ class VehicleViewModel @Inject constructor(private val vehicleRepository: Vehicl
         vehicleRepository.getVehicleSalesList()
     }
 
-    fun getSalesReportList() {
-        vehicleRepository.getSalesReportList()
-    }
+//    fun getSalesReportList() {
+//        vehicleRepository.getSalesReportList()
+//    }
 }

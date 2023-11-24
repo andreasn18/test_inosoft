@@ -8,30 +8,31 @@ import com.example.test_inosoft.model.VehicleStockData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class VehicleRepository(private val vehicleDao: VehicleDao) {
+class VehicleRepository @Inject constructor(private val vehicleDao: VehicleDao) {
     val vehicleStockList = MutableLiveData<List<VehicleStockData>>()
     val vehicleSalesList = MutableLiveData<List<VehicleSalesData>>()
     val salesReportList = MutableLiveData<List<SalesReportData>>()
     private val coroutineScope = CoroutineScope(Dispatchers.Main)
 
-    fun addVehicleStock(vehicleStock: VehicleStockData) {
+    fun addVehicleStock(vararg vehicleStock: VehicleStockData) {
         coroutineScope.launch(Dispatchers.IO) {
-            vehicleDao.addVehicleStock(vehicleStock)
+            vehicleDao.addVehicleStock(*vehicleStock)
         }
     }
 
-    fun addVehicleSales(vehicleSales: VehicleSalesData) {
+    fun addVehicleSales(vararg vehicleSales: VehicleSalesData) {
         coroutineScope.launch(Dispatchers.IO) {
-            vehicleDao.addVehicleSales(vehicleSales)
+            vehicleDao.addVehicleSales(*vehicleSales)
         }
     }
 
-    fun addSalesReport(salesReport: SalesReportData) {
-        coroutineScope.launch(Dispatchers.IO) {
-            vehicleDao.addSalesReport(salesReport)
-        }
-    }
+//    fun addSalesReport(salesReport: SalesReportData) {
+//        coroutineScope.launch(Dispatchers.IO) {
+//            vehicleDao.addSalesReport(salesReport)
+//        }
+//    }
 
     fun getVehicleStockList() {
         coroutineScope.launch(Dispatchers.IO) {
@@ -45,9 +46,9 @@ class VehicleRepository(private val vehicleDao: VehicleDao) {
         }
     }
 
-    fun getSalesReportList() {
-        coroutineScope.launch(Dispatchers.IO) {
-            salesReportList.postValue(vehicleDao.getAllReportData())
-        }
-    }
+//    fun getSalesReportList() {
+//        coroutineScope.launch(Dispatchers.IO) {
+//            salesReportList.postValue(vehicleDao.getAllReportData())
+//        }
+//    }
 }

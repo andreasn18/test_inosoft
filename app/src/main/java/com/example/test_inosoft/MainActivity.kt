@@ -1,6 +1,7 @@
 package com.example.test_inosoft
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -28,12 +29,18 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.test_inosoft.database.VehicleRoomDatabase
+import com.example.test_inosoft.utils.dummyVehicleSalesList
+import com.example.test_inosoft.utils.dummyVehicleStocksList
 import com.example.test_inosoft.view.screen.SalesReportScreen
 import com.example.test_inosoft.view.screen.VehicleSaleScreen
 import com.example.test_inosoft.view.screen.VehicleStockScreen
 import com.example.test_inosoft.view.theme.Test_inosoftTheme
 import com.example.test_inosoft.viewmodel.VehicleViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 @OptIn(ExperimentalMaterial3Api::class)
@@ -45,6 +52,24 @@ class MainActivity : ComponentActivity() {
         setContent {
             val navController = rememberNavController()
             Test_inosoftTheme {
+//                val db = VehicleRoomDatabase.getInstance(this)
+//                val dao = db.vehicleDao()
+//                CoroutineScope(Dispatchers.Main).launch {
+//                    dao.getAllStockData()
+//                }
+                vehicleVM.getVehicleStockList()
+                vehicleVM.getVehicleSalesList()
+                vehicleVM.vehicleStockList.observe(this) {
+                    if (it.isNullOrEmpty()) {
+                        vehicleVM.addVehicleStock(*dummyVehicleStocksList.toTypedArray())
+                    }
+                }
+                vehicleVM.vehicleSalesList.observe(this) {
+                    if (it.isNullOrEmpty()) {
+                        vehicleVM.addVehicleSales(*dummyVehicleSalesList.toTypedArray())
+                    }
+                }
+
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
@@ -97,10 +122,10 @@ class MainActivity : ComponentActivity() {
     fun navGraph(navController: NavHostController) {
         NavHost(navController = navController, startDestination = BottomNavItem.Stock.route) {
             composable(BottomNavItem.Stock.route) {
-                VehicleStockScreen()
+                VehicleStockScreen(vehicleVM)
             }
             composable(BottomNavItem.VehicleSale.route) {
-                VehicleSaleScreen()
+                VehicleSaleScreen(vehicleVM)
             }
             composable(BottomNavItem.SaleReport.route) {
                 SalesReportScreen()

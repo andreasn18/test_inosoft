@@ -4,14 +4,19 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
+import com.example.test_inosoft.model.SalesReportData
 import com.example.test_inosoft.model.VehicleSalesData
+import com.example.test_inosoft.model.VehicleSalesDataTypeConverter
 import com.example.test_inosoft.model.VehicleStockData
+import com.example.test_inosoft.model.VehicleTypeConverter
 
 @Database(
-    entities = [(VehicleStockData::class), (VehicleSalesData::class)],
-    version = 1,
+    entities = [VehicleStockData::class, VehicleSalesData::class],
+    version = 3,
     exportSchema = false
 )
+@TypeConverters(VehicleTypeConverter::class)
 abstract class VehicleRoomDatabase : RoomDatabase() {
     abstract fun vehicleDao(): VehicleDao
 

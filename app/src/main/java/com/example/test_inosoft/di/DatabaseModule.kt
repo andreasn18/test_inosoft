@@ -13,7 +13,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-private object DatabaseModule {
+object DatabaseModule {
 
     @Provides
     fun provideVehicleDao(appDatabase: VehicleRoomDatabase): VehicleDao {
@@ -27,6 +27,6 @@ private object DatabaseModule {
             context.applicationContext,
             VehicleRoomDatabase::class.java,
             "appDB"
-        ).build()
+        ).fallbackToDestructiveMigration().build()
     }
 }

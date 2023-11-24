@@ -12,31 +12,23 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.test_inosoft.model.Car
 import com.example.test_inosoft.model.Motorcycle
 import com.example.test_inosoft.model.VehicleStockData
+import com.example.test_inosoft.viewmodel.VehicleViewModel
 
 
 @Composable
-fun VehicleStockScreen() {
-    val items = listOf(
-        VehicleStockData(
-            Car(
-                "2000", "Merah", "100.000.000", "Turbo", "4", "Matic"
-            ),
-            10
-        ),
-        VehicleStockData(
-            Motorcycle(
-                "2000", "Merah", "100.000.000", "Turbo", "Shock Breaker", "Matic"
-            ),
-            10
-        )
-    )
+fun VehicleStockScreen(vehicleVM: VehicleViewModel) {
+    val list: List<VehicleStockData> by vehicleVM.vehicleStockList.observeAsState(initial = listOf())
+    vehicleVM.getVehicleStockList()
+
     LazyColumn(contentPadding = PaddingValues(16.dp), content = {
-        items(items) {
+        items(list) {
             VehicleItem(vehicleStock = it)
             Spacer(modifier = Modifier.height(12.dp))
         }
